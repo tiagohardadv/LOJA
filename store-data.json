@@ -1,0 +1,148 @@
+{
+  "store": {
+    "name": "Hardlife Store",
+    "slogan": "Apps, jogos e livros em um só lugar.",
+    "company": "Hardlife Tec",
+    "version": "1.0.0",
+    "updatedAt": "2026-04-27"
+  },
+  "products": [
+    {
+      "id": "bolso-certo",
+      "type": "app",
+      "name": "Bolso Certo",
+      "slogan": "Organize sua vida financeira de forma completa.",
+      "shortDescription": "App completo de organização financeira pessoal.",
+      "fullDescription": "O Bolso Certo é um aplicativo de controle financeiro completo para organizar receitas, despesas, contas, metas, viagens, dívidas, cartões e relatórios. Ele foi pensado para quem deseja ter uma visão ampla da vida financeira em um só lugar, com organização, praticidade e clareza.",
+      "category": "Finanças",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-27",
+      "size": "Em breve",
+      "developer": "Hardlife Tec",
+      "status": [
+        "Disponível",
+        "Destaque"
+      ],
+      "logo": "assets/bolso-certo.png",
+      "screenshots": [],
+      "tags": [
+        "finanças",
+        "controle financeiro",
+        "despesas",
+        "receitas",
+        "metas",
+        "relatórios"
+      ],
+      "features": [
+        "Controle de receitas e despesas",
+        "Cadastro de contas e dinheiro em espécie",
+        "Metas financeiras",
+        "Planejamento de viagens",
+        "Controle de dívidas",
+        "Organização de cartões",
+        "Relatórios e gráficos"
+      ],
+      "changelog": [
+        "Primeira versão pública do app.",
+        "Catálogo inicial cadastrado na Hardlife Store."
+      ],
+      "downloads": {
+        "googleDrive": "https://drive.google.com/seu-link-aqui",
+        "github": "https://github.com/seu-link-aqui"
+      }
+    },
+    {
+      "id": "bolso-facil",
+      "type": "app",
+      "name": "Bolso Fácil",
+      "slogan": "Tipo Bolso Certo, só que mais fácil.",
+      "shortDescription": "Controle financeiro simples para Android.",
+      "fullDescription": "O Bolso Fácil é uma versão mais simples do Bolso Certo, criada para pessoas que querem controlar o dinheiro sem complicação. Permite registrar entradas, gastos, contas para pagar, onde está o dinheiro, mudanças de local e correções de valor, com uma experiência direta e fácil de entender.",
+      "category": "Finanças",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-27",
+      "size": "Em breve",
+      "developer": "Hardlife Tec",
+      "status": [
+        "Disponível",
+        "Novo"
+      ],
+      "logo": "assets/bolso-facil.png",
+      "screenshots": [],
+      "tags": [
+        "finanças",
+        "controle simples",
+        "dinheiro",
+        "gastos",
+        "contas",
+        "android"
+      ],
+      "features": [
+        "Registrar dinheiro que entrou",
+        "Registrar gastos",
+        "Controlar contas para pagar",
+        "Cadastrar onde está o dinheiro",
+        "Transferir dinheiro entre locais",
+        "Corrigir valores cadastrados",
+        "Letras grandes e modo simples"
+      ],
+      "changelog": [
+        "Primeira versão pública do app.",
+        "Versão inicial preparada para distribuição oficial."
+      ],
+      "downloads": {
+        "googleDrive": "https://drive.google.com/seu-link-aqui",
+        "github": "https://github.com/seu-link-aqui"
+      }
+    },
+    {
+      "id": "vida-em-ordem",
+      "type": "app",
+      "name": "Vida em Ordem",
+      "slogan": "Organize sua rotina, tarefas, metas e lembretes.",
+      "shortDescription": "App de organização pessoal para tarefas, rotina e metas.",
+      "fullDescription": "O Vida em Ordem ajuda o usuário a organizar tarefas, hábitos, metas, lembretes, projetos, rotina semanal e produtividade em um só lugar. A proposta é facilitar o dia a dia com uma central simples para acompanhar compromissos, objetivos e atividades importantes.",
+      "category": "Organização",
+      "version": "1.0.0",
+      "updatedAt": "2026-04-27",
+      "size": "Em breve",
+      "developer": "Hardlife Tec",
+      "status": [
+        "Disponível"
+      ],
+      "logo": "assets/vida-em-ordem.png",
+      "screenshots": [],
+      "tags": [
+        "organização",
+        "tarefas",
+        "metas",
+        "lembretes",
+        "rotina",
+        "produtividade"
+      ],
+      "features": [
+        "Organização de tarefas",
+        "Controle de hábitos",
+        "Metas pessoais",
+        "Lembretes",
+        "Projetos pessoais",
+        "Rotina semanal",
+        "Acompanhamento de produtividade"
+      ],
+      "changelog": [
+        "Primeira versão pública do app.",
+        "Produto cadastrado na Hardlife Store."
+      ],
+      "downloads": {
+        "googleDrive": "https://drive.google.com/seu-link-aqui",
+        "github": "https://github.com/seu-link-aqui"
+      }
+    }
+  ],
+  "emptyMessages": {
+    "jogos": "Ops, ainda não temos jogos por aqui. Mas a diversão está sendo preparada.",
+    "livros": "Ops, ainda não temos livros cadastrados. Em breve, novidades em parceria com a Livraria e Editora Uni.",
+    "sistemas": "Ops, nenhum sistema disponível no momento. Novas soluções estão a caminho.",
+    "lancamentos": "Ops, nenhum lançamento novo agora. Volte em breve."
+  }
+}

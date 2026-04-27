@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Hardlife Store — Apps, jogos e livros em um só lugar.</title>
+  <meta name="description" content="Hardlife Store, a loja oficial da Hardlife Tec para apps, jogos, livros e soluções digitais." />
+  <meta name="theme-color" content="#10b981" />
+
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-soft: #eaf1f8;
+      --card: #ffffff;
+      --card-2: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --muted-2: #475569;
+      --border: #e2e8f0;
+      --green: #10b981;
+      --green-2: #059669;
+      --blue: #2563eb;
+      --blue-2: #1d4ed8;
+      --cyan: #06b6d4;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --shadow: 0 18px 45px rgba(15, 23, 42, .10);
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, .08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --header-h: 82px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #020617;
+      --bg-soft: #07111f;
+      --card: #0f172a;
+      --card-2: #111827;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --muted-2: #94a3b8;
+      --border: #1e293b;
+      --green: #34d399;
+      --green-2: #10b981;
+      --blue: #38bdf8;
+      --blue-2: #0ea5e9;
+      --cyan: #22d3ee;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .35);
+      --shadow-soft: 0 10px 25px rgba(0, 0, 0, .28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(16, 185, 129, .14), transparent 30%),
+        radial-gradient(circle at top right, rgba(37, 99, 235, .13), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled,
+    .btn.disabled {
+      cursor: not-allowed;
+      opacity: .55;
+      filter: grayscale(.25);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(16, 185, 129, .45);
+      outline-offset: 3px;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
+    }
+
+    .topbar-inner {
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 230px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.95), rgba(6,182,212,.95), rgba(37,99,235,.95));
+      box-shadow: 0 10px 30px rgba(16, 185, 129, .25);
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-title strong {
+      font-size: 1.08rem;
+      letter-spacing: -.02em;
+    }
+
+    .brand-title span {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: min(420px, 100%);
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 13px 44px 13px 44px;
+      font-size: .95rem;
+      box-shadow: var(--shadow-soft);
+      transition: border .2s, transform .2s, background .2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: color-mix(in srgb, var(--green) 70%, var(--border));
+      transform: translateY(-1px);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .clear-search.show {
+      display: grid;
+      place-items: center;
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-soft);
+      transition: transform .2s, border .2s, background .2s;
+      flex: 0 0 auto;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--green) 55%, var(--border));
+    }
+
+    .hero {
+      padding: 34px 0 22px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.14), rgba(6,182,212,.12), rgba(37,99,235,.12)),
+        var(--card);
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -120px -110px auto auto;
+      width: 270px;
+      height: 270px;
+      background: radial-gradient(circle, rgba(34, 211, 238, .30), transparent 66%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: color-mix(in srgb, var(--green) 74%, var(--text));
+      font-weight: 800;
+      font-size: .85rem;
+      letter-spacing: .02em;
+      background: color-mix(in srgb, var(--green) 13%, transparent);
+      border: 1px solid color-mix(in srgb, var(--green) 28%, var(--border));
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.15rem, 6vw, 4.5rem);
+      line-height: .98;
+      letter-spacing: -.06em;
+      margin: 18px 0 12px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--green), var(--cyan), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.03rem;
+      max-width: 720px;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 800;
+      font-size: .93rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 45px;
+      transition: transform .2s, box-shadow .2s, border .2s, background .2s;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--green-2), var(--blue-2));
+      box-shadow: 0 14px 30px rgba(37, 99, 235, .20);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+    }
+
+    .btn-soft {
+      color: var(--text);
+      background: color-mix(in srgb, var(--blue) 10%, var(--card));
+      border: 1px solid color-mix(in srgb, var(--blue) 24%, var(--border));
+    }
+
+    .btn-drive {
+      color: white;
+      background: linear-gradient(135deg, #0f9f6e, #0ea5e9);
+    }
+
+    .btn-github {
+      color: white;
+      background: linear-gradient(135deg, #111827, #334155);
+    }
+
+    [data-theme="dark"] .btn-github {
+      background: linear-gradient(135deg, #334155, #020617);
+      border: 1px solid #475569;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-panel {
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 90%, transparent);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mini-panel strong {
+      display: block;
+      font-size: 1.8rem;
+      letter-spacing: -.04em;
+    }
+
+    .mini-panel span {
+      display: block;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.45;
+      font-size: .92rem;
+    }
+
+    .mini-panel.highlight {
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.18), rgba(6,182,212,.14)),
+        var(--card);
+    }
+
+    .security-strip {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      border: 1px solid color-mix(in srgb, var(--green) 25%, var(--border));
+      background: color-mix(in srgb, var(--green) 8%, var(--card));
+      border-radius: 22px;
+      padding: 15px;
+      color: var(--muted-2);
+      line-height: 1.55;
+      font-size: .95rem;
+    }
+
+    .security-strip b {
+      color: var(--text);
+    }
+
+    .section {
+      padding: 20px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      letter-spacing: -.04em;
+    }
+
+    .section-subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .chips {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 2px 12px;
+      scrollbar-width: thin;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      color: var(--muted-2);
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      padding: 10px 13px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .9rem;
+      white-space: nowrap;
+      transition: transform .2s, border .2s, background .2s, color .2s;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--green) 45%, var(--border));
+    }
+
+    .chip.active {
+      color: white;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--green-2), var(--blue-2));
+      box-shadow: 0 10px 24px rgba(16, 185, 129, .18);
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.45rem;
+      letter-spacing: -.04em;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .product-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 94%, transparent);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform .2s, border .2s, box-shadow .2s;
+      min-height: 100%;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--green) 34%, var(--border));
+      box-shadow: var(--shadow);
+    }
+
+    .product-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+    }
+
+    .product-logo {
+      width: 68px;
+      height: 68px;
+      flex: 0 0 auto;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.2), rgba(6,182,212,.16), rgba(37,99,235,.16));
+      border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--text);
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+
+    .product-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .product-info h3 {
+      margin: 2px 0 5px;
+      font-size: 1.12rem;
+      letter-spacing: -.025em;
+    }
+
+    .product-info .slogan {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0;
+      font-size: .92rem;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: .76rem;
+      font-weight: 900;
+      border: 1px solid var(--border);
+      color: var(--muted-2);
+      background: color-mix(in srgb, var(--card-2) 85%, transparent);
+    }
+
+    .badge.disponivel {
+      color: #047857;
+      background: rgba(16, 185, 129, .12);
+      border-color: rgba(16, 185, 129, .25);
+    }
+
+    [data-theme="dark"] .badge.disponivel {
+      color: #6ee7b7;
+    }
+
+    .badge.novo {
+      color: #0369a1;
+      background: rgba(14, 165, 233, .12);
+      border-color: rgba(14, 165, 233, .25);
+    }
+
+    [data-theme="dark"] .badge.novo {
+      color: #7dd3fc;
+    }
+
+    .badge.destaque {
+      color: #a16207;
+      background: rgba(245, 158, 11, .13);
+      border-color: rgba(245, 158, 11, .25);
+    }
+
+    [data-theme="dark"] .badge.destaque {
+      color: #fde68a;
+    }
+
+    .badge.atualizado {
+      color: #5b21b6;
+      background: rgba(124, 58, 237, .12);
+      border-color: rgba(124, 58, 237, .25);
+    }
+
+    [data-theme="dark"] .badge.atualizado {
+      color: #c4b5fd;
+    }
+
+    .badge.em-breve {
+      color: #be123c;
+      background: rgba(244, 63, 94, .11);
+      border-color: rgba(244, 63, 94, .22);
+    }
+
+    [data-theme="dark"] .badge.em-breve {
+      color: #fda4af;
+    }
+
+    .product-desc {
+      color: var(--muted-2);
+      line-height: 1.58;
+      font-size: .94rem;
+      margin: 0 0 13px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 7px;
+      margin: 12px 0 14px;
+      font-size: .86rem;
+      color: var(--muted);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px dashed color-mix(in srgb, var(--border) 85%, transparent);
+      padding-top: 7px;
+    }
+
+    .meta-row b {
+      color: var(--text);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .card-actions .btn {
+      padding: 10px 12px;
+      min-height: 40px;
+      font-size: .86rem;
+    }
+
+    .empty-state,
+    .error-state,
+    .loading-state {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.08), rgba(37,99,235,.08)),
+        var(--card);
+      border-radius: var(--radius-lg);
+      padding: 28px 18px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .empty-icon {
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 12px;
+      border-radius: 24px;
+      background: color-mix(in srgb, var(--green) 12%, var(--card));
+      font-size: 2rem;
+    }
+
+    .empty-state h3,
+    .error-state h3,
+    .loading-state h3 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+    }
+
+    .empty-state p,
+    .error-state p,
+    .loading-state p {
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-card {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .info-card h3 {
+      margin: 0 0 10px;
+      letter-spacing: -.025em;
+    }
+
+    .info-card p {
+      color: var(--muted-2);
+      line-height: 1.65;
+      margin: 0 0 12px;
+    }
+
+    .info-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted-2);
+      line-height: 1.75;
+    }
+
+    .footer {
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.08), rgba(37,99,235,.06)),
+        color-mix(in srgb, var(--card) 70%, transparent);
+    }
+
+    .footer-inner {
+      padding: 26px 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: .92rem;
+    }
+
+    .footer-inner strong {
+      color: var(--text);
+    }
+
+    .footer-lines {
+      display: grid;
+      gap: 5px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(2, 6, 23, .70);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      animation: fadeIn .18s ease both;
+    }
+
+    .modal {
+      width: min(820px, 100%);
+      max-height: min(88vh, 860px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      color: var(--text);
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, .42);
+      animation: popIn .2s ease both;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(16,185,129,.12), rgba(6,182,212,.09)),
+        var(--card);
+    }
+
+    .modal-logo {
+      width: 86px;
+      height: 86px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(16,185,129,.22), rgba(37,99,235,.20));
+      border: 1px solid var(--border);
+    }
+
+    .modal-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-title {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .modal-title h2 {
+      margin: 2px 0 7px;
+      font-size: clamp(1.4rem, 5vw, 2.1rem);
+      letter-spacing: -.05em;
+    }
+
+    .modal-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .close-modal {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .modal-body {
+      padding: 18px;
+      overflow: auto;
+    }
+
+    .modal-desc {
+      color: var(--muted-2);
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+
+    .modal-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .modal-meta .meta-box {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .meta-box span {
+      display: block;
+      color: var(--muted);
+      font-size: .8rem;
+      margin-bottom: 4px;
+    }
+
+    .meta-box b {
+      display: block;
+      color: var(--text);
+      font-size: .94rem;
+    }
+
+    .list-block {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .list-block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .list-block ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted-2);
+      line-height: 1.75;
+    }
+
+    .download-warning {
+      margin: 16px 0 0;
+      border: 1px solid color-mix(in srgb, var(--green) 26%, var(--border));
+      background: color-mix(in srgb, var(--green) 8%, var(--card));
+      border-radius: 18px;
+      padding: 14px;
+      color: var(--muted-2);
+      line-height: 1.58;
+      font-size: .93rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px 18px 18px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card-2) 80%, var(--card));
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 150;
+      transform: translateX(-50%) translateY(20px);
+      background: color-mix(in srgb, var(--text) 92%, #000);
+      color: color-mix(in srgb, var(--bg) 95%, #fff);
+      padding: 12px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      font-weight: 800;
+      font-size: .9rem;
+      max-width: min(92vw, 620px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .skeleton {
+      min-height: 260px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(90deg,
+          color-mix(in srgb, var(--card) 70%, var(--bg-soft)) 0%,
+          color-mix(in srgb, var(--border) 45%, var(--card)) 50%,
+          color-mix(in srgb, var(--card) 70%, var(--bg-soft)) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite linear;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .skeleton-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --header-h: auto;
+      }
+
+      .app-shell {
+        width: min(100% - 20px, 1180px);
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .search-wrap {
+        width: 100%;
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .hero-card {
+        padding: 20px;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .security-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .grid,
+      .skeleton-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        padding: 15px;
+      }
+
+      .product-logo {
+        width: 62px;
+        height: 62px;
+      }
+
+      .card-actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .modal-backdrop {
+        padding: 8px;
+        align-items: flex-end;
+      }
+
+      .modal {
+        max-height: 92vh;
+        border-radius: 24px 24px 18px 18px;
+      }
+
+      .modal-header {
+        padding: 15px;
+      }
+
+      .modal-logo {
+        width: 72px;
+        height: 72px;
+      }
+
+      .modal-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand-title strong {
+        font-size: 1rem;
+      }
+
+      .brand-title span {
+        font-size: .78rem;
+      }
+
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .icon-btn {
+        width: 46px;
+      }
+
+      .product-top {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="app-shell topbar-inner">
+      <a href="#" class="brand" aria-label="Ir para o início da Hardlife Store">
+        <div class="brand-logo" id="storeLogoBox">
+          <img src="assets/hardlife-store-logo.png" alt="Logo Hardlife Store" onerror="this.style.display='none'; this.parentElement.textContent='HL';" />
+        </div>
+        <div class="brand-title">
+          <strong id="headerStoreName">Hardlife Store</strong>
+          <span id="headerStoreSlogan">Apps, jogos e livros em um só lugar.</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Buscar apps, jogos, livros ou sistemas..."
+            aria-label="Buscar apps, jogos, livros ou sistemas"
+            autocomplete="off"
+          />
+          <button class="clear-search" id="clearSearchBtn" aria-label="Limpar busca">✕</button>
+        </div>
+
+        <button class="icon-btn" id="themeToggle" aria-label="Alternar tema claro ou escuro" title="Alternar tema">
+          🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="app-shell">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div>
+              <span class="eyebrow">✅ Central oficial da Hardlife Tec</span>
+              <h1><span class="gradient-text">Hardlife Store</span></h1>
+              <p>
+                Apps, jogos e livros em um só lugar. Conheça os projetos digitais da Hardlife Tec,
+                baixe aplicativos, acompanhe lançamentos e descubra novidades em um ambiente simples,
+                seguro e oficial.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#catalogo" class="btn btn-primary">Ver apps</a>
+                <a href="#sobre" class="btn btn-ghost">Sobre a Hardlife Store</a>
+                <button class="btn btn-soft" id="copyStoreLinkBtn">Copiar link da loja</button>
+              </div>
+            </div>
+
+            <div class="hero-side" aria-label="Informações rápidas da loja">
+              <div class="mini-panel highlight">
+                <strong id="availableAppsCount">3</strong>
+                <span>apps disponíveis inicialmente na Hardlife Store.</span>
+              </div>
+
+              <div class="mini-panel">
+                <strong>Drive + GitHub</strong>
+                <span>downloads por canais oficiais indicados pela Hardlife Tec.</span>
+              </div>
+
+              <div class="mini-panel">
+                <strong>Hardlife Tec</strong>
+                <span>projetos digitais, criatividade e utilidade para a vida real.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="security-strip">
+            <div aria-hidden="true">🛡️</div>
+            <div>
+              <b>Links oficiais:</b>
+              Baixe nossos aplicativos apenas pelos canais oficiais da Hardlife Store.
+              Os arquivos são disponibilizados pela Hardlife Tec por meio do Google Drive e do GitHub.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="destaques">
+      <div class="app-shell">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Destaques da Hardlife Tec</h2>
+            <p class="section-subtitle">Produtos marcados como destaque no catálogo oficial.</p>
+          </div>
+        </div>
+
+        <div id="featuredGrid" class="grid">
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalogo">
+      <div class="app-shell">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Catálogo</h2>
+            <p class="section-subtitle">Escolha uma categoria ou use a busca para encontrar produtos da Hardlife Tec.</p>
+          </div>
+        </div>
+
+        <div class="chips" id="filterChips" aria-label="Filtros do catálogo">
+          <button class="chip active" data-filter="todos">Todos</button>
+          <button class="chip" data-filter="app">Apps</button>
+          <button class="chip" data-filter="jogo">Jogos</button>
+          <button class="chip" data-filter="livro">Livros</button>
+          <button class="chip" data-filter="sistema">Sistemas</button>
+          <button class="chip" data-filter="lancamento">Lançamentos</button>
+        </div>
+
+        <div class="quick-stats" id="statsBox" aria-label="Contadores do catálogo"></div>
+
+        <div id="catalogStatus" class="loading-state" style="margin-top:16px;">
+          <div class="empty-icon">⏳</div>
+          <h3>Carregando a Hardlife Store...</h3>
+          <p>Buscando o catálogo oficial atualizado.</p>
+        </div>
+
+        <div id="productsGrid" class="grid" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="app-shell">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Sobre a Hardlife Store</h2>
+            <p class="section-subtitle">A central oficial de produtos digitais da Hardlife Tec.</p>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <article class="info-card">
+            <h3>Hardlife Store</h3>
+            <p>
+              A Hardlife Store é a loja oficial da Hardlife Tec, criada para reunir apps, jogos,
+              livros e soluções digitais em um só lugar.
+            </p>
+            <p>
+              Aqui você encontra projetos desenvolvidos pela Hardlife Tec, com links oficiais de
+              download pelo Google Drive e pelo GitHub.
+            </p>
+            <p>
+              A loja foi criada para facilitar o acesso aos aplicativos e novidades da marca,
+              sempre com foco em tecnologia prática, criatividade e utilidade para a vida real.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h3>Informações oficiais</h3>
+            <ul>
+              <li><strong>Empresa:</strong> Hardlife Tec</li>
+              <li><strong>Instagram:</strong> @hardlifetec</li>
+              <li><strong>Desenvolvido por:</strong> Tiago da Silva</li>
+              <li><strong>Instagram:</strong> @tiagohardlife</li>
+              <li><strong>Livros:</strong> parceria com a Livraria e Editora Uni</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3>Aviso de segurança</h3>
+            <p>
+              Baixe nossos aplicativos apenas pelos canais oficiais da Hardlife Store.
+              Os arquivos são disponibilizados pela Hardlife Tec por meio do Google Drive e do GitHub.
+            </p>
+            <p>
+              Para instalar APK fora da Play Store, o Android pode solicitar permissão para instalar
+              apps de fonte desconhecida. Autorize somente se o download foi feito pelos canais oficiais
+              da Hardlife Tec.
+            </p>
+            <p>
+              A Hardlife Store não solicita senhas bancárias, dados de cartão ou acesso às suas contas.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h3>Privacidade</h3>
+            <p>
+              A Hardlife Store funciona como uma central de divulgação e download dos produtos da Hardlife Tec.
+              A loja não acessa dados bancários, não solicita senhas e não conecta com contas financeiras.
+            </p>
+            <p>
+              Alguns aplicativos podem salvar informações apenas no próprio dispositivo do usuário,
+              conforme a proposta de cada app.
+            </p>
+            <p>
+              Os botões de download podem direcionar para serviços externos, como Google Drive e GitHub.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="app-shell footer-inner">
+      <div class="footer-lines">
+        <strong>Hardlife Store® — Apps, jogos e livros em um só lugar.</strong>
+        <span>Uma solução Hardlife Tec®.</span>
+        <span>Desenvolvido por Tiago da Silva — Instagram: @tiagohardlife</span>
+        <span>Hardlife Tec — Instagram: @hardlifetec</span>
+        <span>Livros e publicações em parceria com a Livraria e Editora Uni.</span>
+        <span>Hardlife Store® e Hardlife Tec® são marcas vinculadas à Hardlife Tec.</span>
+        <span>© 2026 Hardlife Tec. Todos os direitos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const fallbackData = {
+      store: {
+        name: "Hardlife Store",
+        slogan: "Apps, jogos e livros em um só lugar.",
+        company: "Hardlife Tec",
+        version: "1.0.0",
+        updatedAt: "2026-04-27"
+      },
+      products: [
+        {
+          id: "bolso-certo",
+          type: "app",
+          name: "Bolso Certo",
+          slogan: "Organize sua vida financeira de forma completa.",
+          shortDescription: "App completo de organização financeira pessoal.",
+          fullDescription: "O Bolso Certo é um aplicativo de controle financeiro completo para organizar receitas, despesas, contas, metas, viagens, dívidas, cartões e relatórios.",
+          category: "Finanças",
+          version: "1.0.0",
+          updatedAt: "2026-04-27",
+          size: "Em breve",
+          developer: "Hardlife Tec",
+          status: ["Disponível", "Destaque"],
+          logo: "assets/bolso-certo.png",
+          screenshots: [],
+          features: [
+            "Controle de receitas e despesas",
+            "Cadastro de contas e dinheiro em espécie",
+            "Metas financeiras",
+            "Planejamento de viagens",
+            "Relatórios e gráficos"
+          ],
+          changelog: ["Primeira versão pública do app."],
+          downloads: {
+            googleDrive: "",
+            github: ""
+          }
+        },
+        {
+          id: "bolso-facil",
+          type: "app",
+          name: "Bolso Fácil",
+          slogan: "Tipo Bolso Certo, só que mais fácil.",
+          shortDescription: "Controle financeiro simples para Android.",
+          fullDescription: "O Bolso Fácil é uma versão mais simples do Bolso Certo, criada para pessoas que querem controlar o dinheiro sem complicação. Permite registrar entradas, gastos, contas para pagar, onde está o dinheiro, mudanças de local e correções de valor.",
+          category: "Finanças",
+          version: "1.0.0",
+          updatedAt: "2026-04-27",
+          size: "Em breve",
+          developer: "Hardlife Tec",
+          status: ["Disponível", "Novo"],
+          logo: "assets/bolso-facil.png",
+          screenshots: [],
+          features: [
+            "Registrar dinheiro que entrou",
+            "Registrar gastos",
+            "Controlar contas para pagar",
+            "Cadastrar onde está o dinheiro",
+            "Letras grandes e modo simples"
+          ],
+          changelog: ["Primeira versão pública do app."],
+          downloads: {
+            googleDrive: "",
+            github: ""
+          }
+        },
+        {
+          id: "vida-em-ordem",
+          type: "app",
+          name: "Vida em Ordem",
+          slogan: "Organize sua rotina, tarefas, metas e lembretes.",
+          shortDescription: "App de organização pessoal para tarefas, rotina e metas.",
+          fullDescription: "O Vida em Ordem ajuda o usuário a organizar tarefas, hábitos, metas, lembretes, projetos, rotina semanal e produtividade em um só lugar.",
+          category: "Organização",
+          version: "1.0.0",
+          updatedAt: "2026-04-27",
+          size: "Em breve",
+          developer: "Hardlife Tec",
+          status: ["Disponível"],
+          logo: "assets/vida-em-ordem.png",
+          screenshots: [],
+          features: [
+            "Organização de tarefas",
+            "Controle de hábitos",
+            "Metas pessoais",
+            "Lembretes",
+            "Rotina semanal"
+          ],
+          changelog: ["Primeira versão pública do app."],
+          downloads: {
+            googleDrive: "",
+            github: ""
+          }
+        }
+      ],
+      emptyMessages: {
+        jogos: "Ops, ainda não temos jogos por aqui. Mas a diversão está sendo preparada.",
+        livros: "Ops, ainda não temos livros cadastrados. Em breve, novidades em parceria com a Livraria e Editora Uni.",
+        sistemas: "Ops, nenhum sistema disponível no momento. Novas soluções estão a caminho.",
+        lancamentos: "Ops, nenhum lançamento novo agora. Volte em breve."
+      }
+    };
+
+    const state = {
+      data: fallbackData,
+      products: [],
+      activeFilter: "todos",
+      searchTerm: "",
+      usedFallback: false
+    };
+
+    const els = {
+      body: document.body,
+      themeToggle: document.getElementById("themeToggle"),
+      searchInput: document.getElementById("searchInput"),
+      clearSearchBtn: document.getElementById("clearSearchBtn"),
+      productsGrid: document.getElementById("productsGrid"),
+      featuredGrid: document.getElementById("featuredGrid"),
+      catalogStatus: document.getElementById("catalogStatus"),
+      filterChips: document.getElementById("filterChips"),
+      statsBox: document.getElementById("statsBox"),
+      productModal: document.getElementById("productModal"),
+      modalContent: document.getElementById("modalContent"),
+      toast: document.getElementById("toast"),
+      copyStoreLinkBtn: document.getElementById("copyStoreLinkBtn"),
+      headerStoreName: document.getElementById("headerStoreName"),
+      headerStoreSlogan: document.getElementById("headerStoreSlogan"),
+      availableAppsCount: document.getElementById("availableAppsCount")
+    };
+
+    document.addEventListener("DOMContentLoaded", init);
+
+    function init() {
+      initTheme();
+      bindEvents();
+      loadStoreData();
+    }
+
+    async function loadStoreData() {
+      showLoading();
+
+      try {
+        const response = await fetch("./store-data.json?v=" + Date.now(), {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Falha ao carregar store-data.json");
+        }
+
+        const json = await response.json();
+
+        if (!json || !Array.isArray(json.products)) {
+          throw new Error("JSON inválido");
+        }
+
+        state.data = mergeWithFallback(json);
+        state.usedFallback = false;
+      } catch (error) {
+        console.warn("Hardlife Store usando fallback interno:", error);
+        state.data = fallbackData;
+        state.usedFallback = true;
+
+        showToast("Não foi possível carregar o catálogo atualizado. Exibindo dados básicos.");
+      }
+
+      state.products = Array.isArray(state.data.products) ? state.data.products : [];
+      updateStoreInfo();
+      renderStats();
+      renderFeatured();
+      renderProducts();
+    }
+
+    function mergeWithFallback(json) {
+      return {
+        store: {
+          ...fallbackData.store,
+          ...(json.store || {})
+        },
+        products: Array.isArray(json.products) ? json.products : fallbackData.products,
+        emptyMessages: {
+          ...fallbackData.emptyMessages,
+          ...(json.emptyMessages || {})
+        }
+      };
+    }
+
+    function bindEvents() {
+      els.themeToggle.addEventListener("click", toggleTheme);
+
+      els.searchInput.addEventListener("input", function () {
+        state.searchTerm = this.value.trim().toLowerCase();
+        els.clearSearchBtn.classList.toggle("show", Boolean(state.searchTerm));
+        renderProducts();
+      });
+
+      els.clearSearchBtn.addEventListener("click", function () {
+        els.searchInput.value = "";
+        state.searchTerm = "";
+        els.clearSearchBtn.classList.remove("show");
+        renderProducts();
+        els.searchInput.focus();
+      });
+
+      els.filterChips.addEventListener("click", function (event) {
+        const chip = event.target.closest(".chip");
+        if (!chip) return;
+
+        state.activeFilter = chip.dataset.filter;
+        document.querySelectorAll(".chip").forEach(btn => btn.classList.remove("active"));
+        chip.classList.add("active");
+
+        renderProducts();
+      });
+
+      els.productModal.addEventListener("click", function (event) {
+        if (event.target === els.productModal) {
+          closeProductDetails();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && els.productModal.classList.contains("show")) {
+          closeProductDetails();
+        }
+      });
+
+      document.addEventListener("click", function (event) {
+        const detailsBtn = event.target.closest("[data-action='details']");
+        if (detailsBtn) {
+          openProductDetails(detailsBtn.dataset.id);
+          return;
+        }
+
+        const downloadBtn = event.target.closest("[data-action='download']");
+        if (downloadBtn) {
+          handleDownloadClick(downloadBtn);
+          return;
+        }
+
+        const closeBtn = event.target.closest("[data-action='close-modal']");
+        if (closeBtn) {
+          closeProductDetails();
+        }
+      });
+
+      els.copyStoreLinkBtn.addEventListener("click", copyStoreLink);
+    }
+
+    function showLoading() {
+      els.catalogStatus.style.display = "block";
+      els.catalogStatus.className = "loading-state";
+      els.catalogStatus.innerHTML = `
+        <div class="empty-icon">⏳</div>
+        <h3>Carregando a Hardlife Store...</h3>
+        <p>Buscando o catálogo oficial atualizado.</p>
+      `;
+
+      els.productsGrid.innerHTML = "";
+      els.featuredGrid.innerHTML = `
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      `;
+    }
+
+    function updateStoreInfo() {
+      const store = state.data.store || fallbackData.store;
+
+      els.headerStoreName.textContent = store.name || "Hardlife Store";
+      els.headerStoreSlogan.textContent = store.slogan || "Apps, jogos e livros em um só lugar.";
+
+      const appsCount = state.products.filter(product => normalizeType(product.type) === "app").length;
+      els.availableAppsCount.textContent = appsCount || 0;
+    }
+
+    function renderStats() {
+      const counts = {
+        todos: state.products.length,
+        app: state.products.filter(p => normalizeType(p.type) === "app").length,
+        jogo: state.products.filter(p => normalizeType(p.type) === "jogo").length,
+        livro: state.products.filter(p => normalizeType(p.type) === "livro").length,
+        sistema: state.products.filter(p => normalizeType(p.type) === "sistema").length,
+        lancamento: state.products.filter(p => normalizeType(p.type) === "lancamento").length
+      };
+
+      els.statsBox.innerHTML = `
+        ${renderStat("Produtos", counts.todos)}
+        ${renderStat("Apps", counts.app)}
+        ${renderStat("Jogos", counts.jogo)}
+        ${renderStat("Livros", counts.livro)}
+      `;
+    }
+
+    function renderStat(label, value) {
+      return `
+        <div class="stat-card">
+          <strong>${escapeHTML(String(value))}</strong>
+          <span>${escapeHTML(label)}</span>
+        </div>
+      `;
+    }
+
+    function renderFeatured() {
+      const featured = state.products.filter(product => {
+        const statuses = getStatuses(product);
+        return statuses.some(status => normalizeText(status) === "destaque");
+      });
+
+      if (!featured.length) {
+        els.featuredGrid.className = "";
+        els.featuredGrid.innerHTML = renderEmptyState(
+          "✨",
+          "Nenhum destaque no momento.",
+          "Quando algum produto estiver marcado como Destaque no catálogo, ele aparecerá aqui."
+        );
+        return;
+      }
+
+      els.featuredGrid.className = "grid";
+      els.featuredGrid.innerHTML = featured.map(renderProductCard).join("");
+    }
+
+    function renderProducts() {
+      const filtered = filterProducts();
+
+      els.productsGrid.innerHTML = "";
+
+      if (state.usedFallback) {
+        els.catalogStatus.style.display = "block";
+        els.catalogStatus.className = "error-state";
+        els.catalogStatus.innerHTML = `
+          <div class="empty-icon">⚠️</div>
+          <h3>Não foi possível carregar a loja agora.</h3>
+          <p>Tente novamente em instantes. Enquanto isso, exibimos um catálogo básico interno para a página não ficar quebrada.</p>
+        `;
+      } else {
+        els.catalogStatus.style.display = "none";
+      }
+
+      if (!filtered.length) {
+        els.productsGrid.className = "";
+
+        if (state.searchTerm) {
+          els.productsGrid.innerHTML = renderEmptyState(
+            "🔎",
+            "Ops, não encontramos nada com esse nome.",
+            "Tente buscar por app, jogo, livro, sistema, categoria ou tag."
+          );
+          return;
+        }
+
+        els.productsGrid.innerHTML = renderEmptyForFilter(state.activeFilter);
+        return;
+      }
+
+      els.productsGrid.className = "grid";
+      els.productsGrid.innerHTML = filtered.map(renderProductCard).join("");
+    }
+
+    function renderProductCard(product) {
+      const typeLabel = getTypeLabel(product.type);
+      const statuses = getStatuses(product);
+      const logo = product.logo || "";
+      const initials = getInitials(product.name);
+      const driveValid = isValidLink(product.downloads && product.downloads.googleDrive);
+      const githubValid = isValidLink(product.downloads && product.downloads.github);
+
+      return `
+        <article class="product-card">
+          <div class="product-top">
+            <div class="product-logo" aria-hidden="true">
+              ${logo ? `<img src="${escapeAttr(logo)}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />` : ""}
+              <span style="display:${logo ? "none" : "grid"}">${escapeHTML(initials)}</span>
+            </div>
+
+            <div class="product-info">
+              <h3>${escapeHTML(product.name || "Produto sem nome")}</h3>
+              <p class="slogan">${escapeHTML(product.slogan || "")}</p>
+            </div>
+          </div>
+
+          <div class="badges">
+            <span class="badge">${escapeHTML(typeLabel)}</span>
+            ${statuses.map(status => `<span class="badge ${badgeClass(status)}">${escapeHTML(status)}</span>`).join("")}
+          </div>
+
+          <p class="product-desc">${escapeHTML(product.shortDescription || product.fullDescription || "Descrição em breve.")}</p>
+
+          <div class="meta">
+            <div class="meta-row">
+              <span>Categoria</span>
+              <b>${escapeHTML(product.category || "Geral")}</b>
+            </div>
+            <div class="meta-row">
+              <span>Versão</span>
+              <b>${escapeHTML(product.version || "Em breve")}</b>
+            </div>
+            <div class="meta-row">
+              <span>Atualizado em</span>
+              <b>${escapeHTML(formatDate(product.updatedAt))}</b>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-soft" data-action="details" data-id="${escapeAttr(product.id)}">Detalhes</button>
+            ${renderDownloadButton("googleDrive", product, driveValid)}
+            ${renderDownloadButton("github", product, githubValid)}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderDownloadButton(kind, product, isValid) {
+      const label = kind === "googleDrive" ? "⬇️ Google Drive" : "&lt;/&gt; GitHub";
+      const className = kind === "googleDrive" ? "btn-drive" : "btn-github";
+      const url = product.downloads ? product.downloads[kind] : "";
+
+      if (!isValid) {
+        return `<button class="btn ${className}" disabled>Link em breve</button>`;
+      }
+
+      return `
+        <a
+          class="btn ${className}"
+          href="${escapeAttr(url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-action="download"
+          data-product="${escapeAttr(product.name || "Produto")}"
+          data-channel="${kind === "googleDrive" ? "Google Drive" : "GitHub"}"
+        >
+          ${label}
+        </a>
+      `;
+    }
+
+    function filterProducts() {
+      return state.products.filter(product => {
+        const matchesFilter = matchFilter(product, state.activeFilter);
+        const matchesSearch = matchSearch(product, state.searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+    }
+
+    function matchFilter(product, filter) {
+      if (filter === "todos") return true;
+      return normalizeType(product.type) === filter;
+    }
+
+    function matchSearch(product, term) {
+      if (!term) return true;
+
+      const searchable = [
+        product.name,
+        product.slogan,
+        product.shortDescription,
+        product.fullDescription,
+        product.category,
+        product.type,
+        product.developer,
+        ...(Array.isArray(product.tags) ? product.tags : []),
+        ...(Array.isArray(product.status) ? product.status : []),
+        ...(Array.isArray(product.features) ? product.features : [])
+      ].filter(Boolean).join(" ").toLowerCase();
+
+      return normalizeText(searchable).includes(normalizeText(term));
+    }
+
+    function searchProducts() {
+      return filterProducts();
+    }
+
+    function openProductDetails(productId) {
+      const product = state.products.find(item => item.id === productId);
+      if (!product) {
+        showToast("Produto não encontrado.");
+        return;
+      }
+
+      const statuses = getStatuses(product);
+      const logo = product.logo || "";
+      const initials = getInitials(product.name);
+      const features = Array.isArray(product.features) && product.features.length ? product.features : ["Recursos em breve."];
+      const changelog = Array.isArray(product.changelog) && product.changelog.length ? product.changelog : ["Novidades em breve."];
+      const driveValid = isValidLink(product.downloads && product.downloads.googleDrive);
+      const githubValid = isValidLink(product.downloads && product.downloads.github);
+
+      els.modalContent.innerHTML = `
+        <div class="modal-header">
+          <div class="modal-logo" aria-hidden="true">
+            ${logo ? `<img src="${escapeAttr(logo)}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />` : ""}
+            <span style="display:${logo ? "none" : "grid"}">${escapeHTML(initials)}</span>
+          </div>
+
+          <div class="modal-title">
+            <div class="badges">
+              <span class="badge">${escapeHTML(getTypeLabel(product.type))}</span>
+              ${statuses.map(status => `<span class="badge ${badgeClass(status)}">${escapeHTML(status)}</span>`).join("")}
+            </div>
+            <h2 id="modalTitle">${escapeHTML(product.name || "Produto")}</h2>
+            <p>${escapeHTML(product.slogan || "")}</p>
+          </div>
+
+          <button class="close-modal" data-action="close-modal" aria-label="Fechar detalhes">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-desc">${escapeHTML(product.fullDescription || product.shortDescription || "Descrição em breve.")}</p>
+
+          <div class="modal-meta">
+            ${renderMetaBox("Categoria", product.category || "Geral")}
+            ${renderMetaBox("Tipo", getTypeLabel(product.type))}
+            ${renderMetaBox("Versão", product.version || "Em breve")}
+            ${renderMetaBox("Atualizado em", formatDate(product.updatedAt))}
+            ${renderMetaBox("Desenvolvedor", product.developer || "Hardlife Tec")}
+            ${renderMetaBox("Tamanho do APK", product.size || "Em breve")}
+          </div>
+
+          <div class="list-block">
+            <h3>Recursos principais</h3>
+            <ul>
+              ${features.map(item => `<li>${escapeHTML(item)}</li>`).join("")}
+            </ul>
+          </div>
+
+          <div class="list-block">
+            <h3>Novidades da versão</h3>
+            <ul>
+              ${changelog.map(item => `<li>${escapeHTML(item)}</li>`).join("")}
+            </ul>
+          </div>
+
+          <div class="download-warning">
+            <strong>Aviso de instalação:</strong><br>
+            Baixe nossos aplicativos apenas pelos canais oficiais da Hardlife Store. Os arquivos são disponibilizados pela Hardlife Tec por meio do Google Drive e do GitHub.
+            <br><br>
+            Para instalar APK fora da Play Store, o Android pode solicitar permissão para instalar apps de fonte desconhecida. Autorize somente se o download foi feito pelos canais oficiais da Hardlife Tec.
+            <br><br>
+            A Hardlife Store não solicita senhas bancárias, dados de cartão ou acesso às suas contas.
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          ${renderDownloadButton("googleDrive", product, driveValid)}
+          ${renderDownloadButton("github", product, githubValid)}
+          <button class="btn btn-ghost" data-action="close-modal">Fechar</button>
+        </div>
+      `;
+
+      els.productModal.classList.add("show");
+      document.body.classList.add("modal-open");
+
+      const closeButton = els.productModal.querySelector(".close-modal");
+      if (closeButton) closeButton.focus();
+    }
+
+    function closeProductDetails() {
+      els.productModal.classList.remove("show");
+      document.body.classList.remove("modal-open");
+    }
+
+    function renderMetaBox(label, value) {
+      return `
+        <div class="meta-box">
+          <span>${escapeHTML(label)}</span>
+          <b>${escapeHTML(value)}</b>
+        </div>
+      `;
+    }
+
+    function renderEmptyForFilter(filter) {
+      const messages = state.data.emptyMessages || fallbackData.emptyMessages;
+
+      const map = {
+        jogo: ["🎮", "Ops, acho que não tem nada aqui.", messages.jogos],
+        livro: ["📚", "Ops, acho que não tem nada aqui.", messages.livros],
+        sistema: ["🧩", "Ops, acho que não tem nada aqui.", messages.sistemas],
+        lancamento: ["🚀", "Ops, acho que não tem nada aqui.", messages.lancamentos],
+        app: ["📱", "Nenhum app cadastrado no momento.", "Em breve novos aplicativos poderão aparecer por aqui."],
+        todos: ["🛒", "Ops, ainda não temos nada por aqui.", "Mas vem novidade da Hardlife Tec."]
+      };
+
+      const selected = map[filter] || map.todos;
+      return renderEmptyState(selected[0], selected[1], selected[2]);
+    }
+
+    function renderEmptyState(icon, title, text) {
+      return `
+        <div class="empty-state">
+          <div class="empty-icon">${escapeHTML(icon)}</div>
+          <h3>${escapeHTML(title)}</h3>
+          <p>${escapeHTML(text)}</p>
+        </div>
+      `;
+    }
+
+    function handleDownloadClick(element) {
+      const product = element.dataset.product || "produto";
+      const channel = element.dataset.channel || "canal oficial";
+
+      showToast(`Você está saindo da Hardlife Store para baixar ${product} pelo ${channel}.`);
+    }
+
+    async function copyStoreLink() {
+      const url = window.location.href.split("#")[0];
+
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast("Link da Hardlife Store copiado.");
+      } catch (error) {
+        showToast("Não foi possível copiar automaticamente. Copie o link pela barra do navegador.");
+      }
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem("hardlife-store-theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = savedTheme || (prefersDark ? "dark" : "light");
+      setTheme(theme);
+    }
+
+    function setTheme(theme) {
+      const safeTheme = theme === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", safeTheme);
+      localStorage.setItem("hardlife-store-theme", safeTheme);
+      els.themeToggle.textContent = safeTheme === "dark" ? "☀️" : "🌙";
+      els.themeToggle.setAttribute("aria-label", safeTheme === "dark" ? "Ativar tema claro" : "Ativar tema escuro");
+      els.themeToggle.setAttribute("title", safeTheme === "dark" ? "Ativar tema claro" : "Ativar tema escuro");
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "Em breve";
+
+      const date = new Date(dateValue + "T00:00:00");
+      if (Number.isNaN(date.getTime())) return dateValue;
+
+      return date.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => {
+        els.toast.classList.remove("show");
+      }, 3200);
+    }
+
+    function getStatuses(product) {
+      if (Array.isArray(product.status)) return product.status;
+      if (typeof product.status === "string" && product.status.trim()) return [product.status.trim()];
+      return [];
+    }
+
+    function getTypeLabel(type) {
+      const normalized = normalizeType(type);
+
+      const labels = {
+        app: "App",
+        jogo: "Jogo",
+        livro: "Livro",
+        sistema: "Sistema",
+        lancamento: "Lançamento"
+      };
+
+      return labels[normalized] || "Produto";
+    }
+
+    function normalizeType(type) {
+      const value = normalizeText(type || "");
+
+      const map = {
+        apps: "app",
+        aplicativo: "app",
+        aplicativos: "app",
+        app: "app",
+        jogo: "jogo",
+        jogos: "jogo",
+        livro: "livro",
+        livros: "livro",
+        sistema: "sistema",
+        sistemas: "sistema",
+        lancamento: "lancamento",
+        lancamentos: "lancamento",
+        lançamento: "lancamento",
+        lançamentos: "lancamento"
+      };
+
+      return map[value] || value;
+    }
+
+    function normalizeText(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    function badgeClass(status) {
+      const value = normalizeText(status);
+
+      if (value === "em breve") return "em-breve";
+      if (value === "disponivel") return "disponivel";
+      if (value === "disponível") return "disponivel";
+
+      return value.replace(/\s+/g, "-");
+    }
+
+    function getInitials(name) {
+      const words = String(name || "HL")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      if (!words.length) return "HL";
+      if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+
+    function isValidLink(url) {
+      if (!url || typeof url !== "string") return false;
+
+      const value = url.trim();
+
+      if (!value) return false;
+      if (value === "#") return false;
+      if (value.toLowerCase().includes("seu-link-aqui")) return false;
+      if (value.toLowerCase().includes("link-aqui")) return false;
+      if (value.toLowerCase().includes("em-breve")) return false;
+
+      return /^https?:\/\//i.test(value);
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHTML(value);
+    }
+  </script>
+</body>
+</html>
